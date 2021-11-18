@@ -8,8 +8,6 @@ import AuthContext from './app/auth/context';
 
 import AppNavigation from './app/navigation/AppNavigation';
 import AuthNavigation from './app/navigation/AuthNavigation';
-import Loading from './app/screens/Loading';
-import ImagesScreen from './app/screens/ImagesScreen';
 
 const App = () => {
   const [user, setUser] = useState();
@@ -23,7 +21,7 @@ const App = () => {
     }
     setUser(userData);
     setIsReady(true);
-  } 
+  }  
   
   useEffect( () => {
     getLoginData();

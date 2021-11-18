@@ -22,8 +22,9 @@ const getPexels = async(uri, params) =>{
       }
 }
 
-const searchImages = async (query, per_page) => {
-    return await getPexels(`https://api.pexels.com/v1/search?per_page=${per_page}&query=${query}`, params);
+const searchImages = async (query, per_page, page) => {
+    console.log('ooo');
+    return await getPexels(`https://api.pexels.com/v1/search?per_page=${per_page}&query=${query}&page=${page}`, params);
 }
 
 export default { searchImages };
