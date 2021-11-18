@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 
 const HomeScreen = ( {navigation} ) => {
-
     const handlePress = () => {
         navigation.navigate('tags');
     }
@@ -13,7 +12,6 @@ const HomeScreen = ( {navigation} ) => {
                 title="Go to Tags Screen"
                 onPress={handlePress}
             />
-
         </View>
     );
 };
@@ -24,6 +22,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center',   
     }
 });
