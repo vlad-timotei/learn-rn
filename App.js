@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
 
@@ -8,6 +9,7 @@ import AuthContext from './app/auth/context';
 import AppNavigation from './app/navigation/AppNavigation';
 import AuthNavigation from './app/navigation/AuthNavigation';
 import Loading from './app/screens/Loading';
+import ImagesScreen from './app/screens/ImagesScreen';
 
 const App = () => {
   const [user, setUser] = useState();
@@ -28,7 +30,7 @@ const App = () => {
  }, [])
 
   if( !isReady )
-    return <Loading />
+    return <ActivityIndicator/>
 
 
   return (

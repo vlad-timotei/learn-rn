@@ -20,6 +20,7 @@ const HomeScreen = ( {navigation} ) => {
             <Btn
                 title="View images"
                 color="#e3305e"
+                onPress={() => navigation.navigate('images') }
             />
             <Btn
                 title="Log Out"

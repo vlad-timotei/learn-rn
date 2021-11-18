@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from '../screens/HomeScreen';
 import TagsScreen from '../screens/TagsScreen';
+import ImagesScreen from '../screens/ImagesScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,11 @@ const AppNavigation = ({initialRouteName}) => {
             name="tags"
             component={TagsScreen}
             options={{ title: "Tags Page"  }}
+        />
+        <Stack.Screen
+            name="images"
+            component={ImagesScreen}
+            options={{ headerShown: false }}
         />
       </Stack.Navigator>
   );
