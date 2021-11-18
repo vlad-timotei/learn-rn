@@ -4,19 +4,26 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from '../screens/HomeScreen';
 import TagsScreen from '../screens/TagsScreen';
+import LoginScreen from '../screens/LoginScreen';
 
 const Stack = createNativeStackNavigator();
 
-const AppNavigation = () => {
+const AppNavigation = ({initialRouteName}) => {
   return (
     <NavigationContainer>
       <Stack.Navigator
+        initialRouteName={initialRouteName}
         screenOptions={{
             headerStyle: {
                 backgroundColor: '#ccc',
             }
         }}
         >
+        <Stack.Screen
+            options={{ headerShown: false }}
+            name="login"
+            component={LoginScreen}
+        />
         <Stack.Screen
             options={{ headerShown: false }}
             name="home"
