@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
 
@@ -7,18 +7,28 @@ import AuthContext from './app/auth/context';
 
 import AppNavigation from './app/navigation/AppNavigation';
 import AuthNavigation from './app/navigation/AuthNavigation';
+import Loading from './app/screens/Loading';
 
 const App = () => {
   const [user, setUser] = useState();
+  const [isReady, setIsReady] = useState(false);
+
+  const getLoginData = async () =>{ 
+    const userData = await storage.get('learn_RN');
+    if ( !userData ){
+      setIsReady(true);
+      return;
+    }
+    setUser(userData);
+    setIsReady(true);
+  } 
+  
   useEffect( () => {
-    const getLoginData = async () =>{ 
-      const userData = await storage.get('learn_RN');
-      if ( !userData )
-        return;
-      setUser(userData);
-    } 
     getLoginData();
  }, [])
+
+  if( !isReady )
+    return <Loading />
 
 
   return (

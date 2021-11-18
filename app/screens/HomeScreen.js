@@ -1,31 +1,21 @@
-import React, { useContext } from 'react';
+import React  from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Btn from '../components/Btn';
 import Logo from '../components/Logo';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Auth from '../auth/auth';
-import AuthContext from '../auth/context';
+
+import useAuth from '../auth/useAuth';
 
 const HomeScreen = ( {navigation} ) => {
-    const authContext = useContext(AuthContext);
-    const handlePress = () => {
-        navigation.navigate('tags');
-    }
-
-    const handleLogOut = () => {
-        Auth.logout();
-        authContext.setUser( null )
-    }
-
+    const {logOut} = useAuth();
     return (
         <View style={styles.container}>
             <Logo/>
             <Btn
                 color='#f89140'
-                title="Go to Tags Screen"
-                onPress={handlePress}
+                title="Tags Screen"
+                onPress={() => navigation.navigate('tags') }
             />
             <Btn
                 title="View images"
@@ -34,7 +24,7 @@ const HomeScreen = ( {navigation} ) => {
             <Btn
                 title="Log Out"
                 color="#6b4801"
-                onPress={handleLogOut}
+                onPress={logOut}
             />
         </View>
     );
