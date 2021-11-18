@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
+import Btn from '../components/Btn';
 import Logo from '../components/Logo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -22,12 +24,18 @@ const HomeScreen = ( {navigation} ) => {
     return (
         <View style={styles.container}>
             <Logo/>
-            <Button 
+            <Btn
+                color='#f89140'
                 title="Go to Tags Screen"
                 onPress={handlePress}
             />
-            <Button 
+            <Btn
+                title="View images"
+                color="#e3305e"
+            />
+            <Btn
                 title="Log Out"
+                color="#6b4801"
                 onPress={handleLogOut}
             />
         </View>
@@ -40,7 +48,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',   
+        alignItems: 'center', 
+        paddingHorizontal: 20,
     },
 
 });

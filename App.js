@@ -18,7 +18,10 @@ const App = () => {
   const isLoggedIn = getUser();
   console.log(isLoggedIn);
   const initialRouteName = isLoggedIn ? 'home' : 'login';
-  //Will always load Home
+  //Will always load login
+  //This renders every time! Maybe useEffect?
+
+
   return (
     <AppNavigation initialRouteName={initialRouteName}/>
   );
