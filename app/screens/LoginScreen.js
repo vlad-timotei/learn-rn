@@ -1,37 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, View, TextInput, Text } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import Auth from '../auth/auth'
+import AuthContext from '../auth/context';
 
 import Btn from '../components/Btn';
 import Logo from '../components/Logo';
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = () => {
+    const authContext = useContext(AuthContext);
+
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ error, setError ] = useState();
 
     const handleLogin = async() => {
-        if ( ! username || ! password ) {
-            setError('Please complete both username and password!');
-            return;
-        }
-        // Other validation 
-        setError( null );
-
-        try {
-            await AsyncStorage.setItem(
-                'learn_login',
-                JSON.stringify( {
-                    username,
-                    password
-                } )
-            );
-        } catch (error) {
-            console.log( error );
-        }
-
-        navigation.navigate('home');
+        const result = await Auth.login( username, password );
+        if ( result.error )
+            return setError( result.error )
+        setError(false);
+        authContext.setUser( result.value )
     }
 
     return (

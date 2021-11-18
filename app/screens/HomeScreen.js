@@ -1,24 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Btn from '../components/Btn';
 import Logo from '../components/Logo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import Auth from '../auth/auth';
+import AuthContext from '../auth/context';
+
 const HomeScreen = ( {navigation} ) => {
+    const authContext = useContext(AuthContext);
     const handlePress = () => {
         navigation.navigate('tags');
     }
 
-    const handleLogOut = async () => {
-        try {
-            await AsyncStorage.removeItem(
-                'learn_login',
-            );
-            navigation.navigate('login');
-        } catch (error) {
-            console.log( error );
-        }
+    const handleLogOut = () => {
+        Auth.logout();
+        authContext.setUser( null )
     }
 
     return (
