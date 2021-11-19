@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Image, Text, TouchableHighlight, View } from 'react-native';
+import Animated, {
+  BounceInDown
+} from 'react-native-reanimated';
+
 
 import pexels from '../api/pexels';
 import Pagination from '../components/Pagination';
@@ -42,8 +46,10 @@ const ImagesScreen = () => {
           style={{padding: 24}}
           data={imagesData}
           keyExtractor={({ id }) => id}
-          renderItem={({ item }) => (
-            <Image source={{uri: item.src.medium}} style={{width: 150, height: 150, margin: 10}}/>
+          renderItem={({ item, index }) => (
+            <Animated.Image
+            entering={BounceInDown.duration( index * 100 ).delay(100)}
+            source={{uri: item.src.medium}} style={{width: 150, height: 150, margin: 10}}/>
           )}
           numColumns={2}
           // ListFooterComponent={<LoadMore />}

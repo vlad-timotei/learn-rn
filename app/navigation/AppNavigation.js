@@ -1,10 +1,13 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from '../screens/HomeScreen';
 import TagsScreen from '../screens/TagsScreen';
 import ImagesScreen from '../screens/ImagesScreen';
+import AnimationsScreen from '../screens/AnimationsScreen';
+import Cirlce from '../components/animations/Circle';
+import AnimatedLogo from '../components/animations/AnimatedLogo';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +35,14 @@ const AppNavigation = ({initialRouteName}) => {
             name="images"
             component={ImagesScreen}
             options={{ headerShown: false }}
+        />
+        <Stack.Screen
+            name="animations_circle"
+            component={Cirlce}
+        />
+        <Stack.Screen
+            name="animations_logo"
+            component={AnimatedLogo}
         />
       </Stack.Navigator>
   );

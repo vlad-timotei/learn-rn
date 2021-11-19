@@ -23,6 +23,16 @@ const HomeScreen = ( {navigation} ) => {
                 onPress={() => navigation.navigate('images') }
             />
             <Btn
+                title="Animation Circle - Demo"
+                color="#590904"
+                onPress={() => navigation.navigate('animations_circle') }
+            />
+            <Btn
+                title="Animation Logo"
+                color="#590904"
+                onPress={() => navigation.navigate('animations_logo') }
+            />
+            <Btn
                 title="Log Out"
                 color="#6b4801"
                 onPress={logOut}
