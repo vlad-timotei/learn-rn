@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Image, Text, TouchableHighlight, View } from 'react-native';
 
 import pexels from '../api/pexels';
+import Pagination from '../components/Pagination';
 
 const search_query = 'dogs';
 const per_page = 6;
@@ -42,7 +43,7 @@ const ImagesScreen = () => {
           onRefresh={() => searchImages(search_query, per_page, page )}
           style={{padding: 24}}
           data={imagesData}
-          keyExtractor={({ id }, index) => id}
+          keyExtractor={({ id }) => id}
           renderItem={({ item }) => (
             <Image source={{uri: item.src.medium}} style={{width: 150, height: 150, margin: 10}}/>
           )}
@@ -50,28 +51,13 @@ const ImagesScreen = () => {
         />
         </>
       )}
-      <View style={{flexDirection:'row', alignSelf:'flex-end'}}>
-            <TouchableHighlight
-                style={{
-                    flex:1,
-                    marginRight: 1,
-                    paddingVertical: 10,
-                    backgroundColor: page === 1 ? 'white' : 'grey',
-                }}
-                onPress={prevPage}
-
-            >
-               <Text style={{color: 'white', textAlign: 'center'}}>Previous</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
-                style={{flex:1, marginRight: 1, paddingVertical: 10, backgroundColor: 'grey'}}
-                onPress={nextPage}
-            >
-                <Text style={{color: 'white', textAlign: 'center'}}>Next</Text>
-            </TouchableHighlight>
-        </View>
+        <Pagination 
+            prev={page > 1}
+            next={page < maxPage}
+            prevPage={prevPage}
+            nextPage={nextPage}
+        />
     </View>
   );
 };
-
 export default ImagesScreen;
