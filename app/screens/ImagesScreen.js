@@ -5,7 +5,7 @@ import pexels from '../api/pexels';
 import Pagination from '../components/Pagination';
 
 const search_query = 'dogs';
-const per_page = 6;
+const per_page = 10;
 
 const ImagesScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,7 +16,7 @@ const ImagesScreen = () => {
   const searchImages = async( query, per_page, page) => {
     setIsLoading( true );
     const result = await pexels.searchImages(query, per_page, page);
-    setImagesData( result.photos );
+    setImagesData( [ ...imagesData, ...result.photos ] );
     setMaxPage( parseInt( result.total_results / per_page ) );
     setIsLoading( false );
   }
@@ -36,11 +36,9 @@ const ImagesScreen = () => {
 
   return (
     <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-      {isLoading ? <ActivityIndicator/> : (
-        <>
         <FlatList
           refreshing={isLoading}
-          onRefresh={() => searchImages(search_query, per_page, page )}
+          onRefresh={() => { setImagesData([]); setPage(1); }}
           style={{padding: 24}}
           data={imagesData}
           keyExtractor={({ id }) => id}
@@ -48,15 +46,17 @@ const ImagesScreen = () => {
             <Image source={{uri: item.src.medium}} style={{width: 150, height: 150, margin: 10}}/>
           )}
           numColumns={2}
+          // ListFooterComponent={<LoadMore />}
+          onEndReached={nextPage}
+          onEndReachedThreshold={0.1} 
         />
-        </>
-      )}
-        <Pagination 
+      {isLoading && <ActivityIndicator/>}
+       {/*<Pagination 
             prev={page > 1}
             next={page < maxPage}
             prevPage={prevPage}
             nextPage={nextPage}
-        />
+       />*/}
     </View>
   );
 };

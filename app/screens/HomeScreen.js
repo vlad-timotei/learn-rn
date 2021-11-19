@@ -14,11 +14,11 @@ const HomeScreen = ( {navigation} ) => {
             <Logo/>
             <Btn
                 color='#f89140'
-                title="Tags Screen"
+                title="Tags"
                 onPress={() => navigation.navigate('tags') }
             />
             <Btn
-                title="View images"
+                title="Dogs"
                 color="#e3305e"
                 onPress={() => navigation.navigate('images') }
             />
