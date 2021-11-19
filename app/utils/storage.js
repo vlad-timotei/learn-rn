@@ -5,7 +5,7 @@ const prefix = 'learnRN';
 const set = async ( key, value ) => {
     try {
         await AsyncStorage.setItem( prefix + key, JSON.stringify( value ));
-        console.log(`I am setting ${key} with value of `, value);
+        // console.log(`I am setting ${key} with value of `, value);
     } catch ( error ) {
         console.log( error );
     }  
@@ -16,7 +16,7 @@ const get = async ( key ) => {
     try {
         const item = await AsyncStorage.getItem( prefix + key );
         const value = JSON.parse( item );
-        console.log(`I am getting ${key} with value of `, value);
+        // console.log(`I am getting ${key} with value of `, value);
         if ( !value ) return null;
             return value;
 
@@ -29,7 +29,7 @@ const get = async ( key ) => {
 const remove = async ( key ) => {
     try {
         await AsyncStorage.removeItem( prefix + key );
-        console.log(`I am removinf ${key}`);
+        // console.log(`I am removinfg ${key}`);
 
     } catch (error) {
         console.log(error);
