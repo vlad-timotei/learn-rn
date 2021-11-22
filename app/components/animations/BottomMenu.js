@@ -1,7 +1,7 @@
 import React, { Children, useEffect } from 'react';
 import { Button, StyleSheet, View, Text, useWindowDimensions } from 'react-native';
 import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-handler';
-import Animated, { useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import Animated, { runOnJS, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
 const SPRING_CONFIG = {
     damping: 10,
@@ -11,17 +11,23 @@ const SPRING_CONFIG = {
     stiffness: 50,
 };
 
-const BottomMenu = ({isOpen = true, children }) => {
+const BottomMenu = ({isOpen = true, setIsOpen, children }) => {
     const dimensions = useWindowDimensions();
     const top = useSharedValue( dimensions.height );
 
     useEffect( () => {
-        if( !isOpen )
-            return;
-        top.value = withSpring( 
-            dimensions.height / 2,
-            SPRING_CONFIG,
-        );
+        if( !isOpen ) {
+            top.value = withSpring( 
+                dimensions.height,
+                SPRING_CONFIG,
+            );
+        } else {
+            top.value = withSpring( 
+                dimensions.height / 2,
+                SPRING_CONFIG,
+            );
+        }
+            
     }, [isOpen]);
 
     const gestureHandler = useAnimatedGestureHandler({
@@ -34,6 +40,7 @@ const BottomMenu = ({isOpen = true, children }) => {
         onEnd: () => {
             if ( top.value > dimensions.height / 2 + 200 ){
                 top.value = dimensions.height;
+                runOnJS(setIsOpen)(false);
             } else {
                 top.value = dimensions.height / 2;
             }

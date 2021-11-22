@@ -31,6 +31,10 @@ const BetterAnimatedLogo = () => {
         ));
     }, []);
 
+    useEffect( () => {
+        rotation.value = isOpen ? withSpring(-15) : withSpring( 0 );
+    }, [isOpen]);
+
     const logoAnimatedStyle = {
         white: useAnimatedStyle(()=> {
             return {
@@ -83,38 +87,9 @@ const BetterAnimatedLogo = () => {
         }),
     };
 
-    const openMenu = () => {
-        setIsOpen( prev => !prev );
-
-    }
-
-    const handleTap = useAnimatedGestureHandler({
-        onStart: () => {
-          runOnJS(openMenu);
-        }
-    });
-
-    return (
-        <View style={styles.container}>
-          <TouchableWithoutFeedback onPress={openMenu}>
-              <View>
-                  <Animated.View style={[styles.logo, logoAnimatedStyle.logo]}>
-                          <Animated.View style={[styles.red, logoAnimatedStyle.red]} />
-                          <Animated.View style={[styles.orange, logoAnimatedStyle.orange]} />
-                          <Animated.View style={[styles.white, logoAnimatedStyle.white]} />
-                  </Animated.View>
-              </View>
-          </TouchableWithoutFeedback>
-          <BottomMenu isOpen={isOpen}>
-              <Text>Welcome here!</Text>
-          </BottomMenu>
-        </View>
-   
-  );
-
     return (
           <View style={styles.container}>
-            <TapGestureHandler onGestureEvent={handleTap}>
+            <TapGestureHandler onHandlerStateChange={() => setIsOpen( prev => !prev )}>
                 <View>
                     <Animated.View style={[styles.logo, logoAnimatedStyle.logo]}>
                             <Animated.View style={[styles.red, logoAnimatedStyle.red]} />
@@ -123,7 +98,9 @@ const BetterAnimatedLogo = () => {
                     </Animated.View>
                 </View>
             </TapGestureHandler>
-            <BottomMenu isOpen={isOpen}/>
+            <BottomMenu isOpen={isOpen} setIsOpen={setIsOpen}>
+                <Text>Hello here!</Text>
+            </BottomMenu>
           </View>
      
     );
