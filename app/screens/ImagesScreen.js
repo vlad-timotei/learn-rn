@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Image, Text, TouchableHighlight, View } from 'react-native';
 import Animated, {
-  BounceInDown
+  withTiming,
+  withDelay,
 } from 'react-native-reanimated';
 
 
@@ -38,6 +39,30 @@ const ImagesScreen = () => {
     searchImages(search_query, per_page, page );
   }, [ page ]);
 
+  // With this version - doesn't work - needs to be remade.
+  const entering = (targetValues) => {
+    'worklet';
+    const animations = {
+      originX: withTiming(targetValues.originX, { duration: 3000 }),
+      opacity: withTiming(1, { duration: 2000 }),
+      borderRadius: withDelay(4000, withTiming(30, { duration: 3000 })),
+      transform: [
+        { rotate: withTiming('0deg', { duration: 4000 }) },
+        { scale: withTiming(1, { duration: 3500 }) },
+      ],
+    };
+    const initialValues = {
+      originX: -150,
+      opacity: 0,
+      borderRadius: 10,
+      transform: [{ rotate: '90deg' }, { scale: 0.5 }],
+    };
+    return {
+      initialValues,
+      animations,
+    };
+  };
+
   return (
     <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         <FlatList
@@ -47,9 +72,10 @@ const ImagesScreen = () => {
           data={imagesData}
           keyExtractor={({ id }) => id}
           renderItem={({ item, index }) => (
-            <Animated.Image
-            entering={BounceInDown.duration( index * 100 ).delay(100)}
-            source={{uri: item.src.medium}} style={{width: 150, height: 150, margin: 10}}/>
+            <Animated.View entering={entering}>
+              <Animated.Image
+              source={{uri: item.src.medium}} style={{width: 150, height: 150, margin: 10}}/>
+            </Animated.View>
           )}
           numColumns={2}
           // ListFooterComponent={<LoadMore />}
