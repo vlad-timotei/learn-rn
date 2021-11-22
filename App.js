@@ -8,6 +8,7 @@ import AuthContext from './app/auth/context';
 
 import AppNavigation from './app/navigation/AppNavigation';
 import AuthNavigation from './app/navigation/AuthNavigation';
+import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-handler';
 
 const App = () => {
   const [user, setUser] = useState();
@@ -27,16 +28,18 @@ const App = () => {
     getLoginData();
  }, [])
 
-  if( !isReady )
+   if( !isReady )
     return <ActivityIndicator/>
 
 
   return (
-    <AuthContext.Provider value={{user, setUser}}>
-      <NavigationContainer>
-        { user ? <AppNavigation/> : <AuthNavigation />}
-      </NavigationContainer>
-    </AuthContext.Provider>
+    <GestureHandlerRootView style={{flex: 1}} >
+      <AuthContext.Provider value={{user, setUser}}>
+        <NavigationContainer>
+          { user ? <AppNavigation/> : <AuthNavigation />}
+        </NavigationContainer>
+      </AuthContext.Provider>
+    </GestureHandlerRootView>
   );
 }
 
