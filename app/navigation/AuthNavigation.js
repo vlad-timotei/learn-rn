@@ -6,10 +6,9 @@ import LoginScreen from '../screens/LoginScreen';
 
 const Stack = createNativeStackNavigator();
 
-const AuthNavigation = ({initialRouteName}) => {
+const AuthNavigation = () => {
   return (
       <Stack.Navigator
-        initialRouteName={initialRouteName}
         screenOptions={{
             headerStyle: {
                 backgroundColor: '#ccc',

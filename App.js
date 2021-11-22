@@ -8,7 +8,11 @@ import AuthContext from './app/auth/context';
 
 import AppNavigation from './app/navigation/AppNavigation';
 import AuthNavigation from './app/navigation/AuthNavigation';
+
+import BetterAnimatedLogo from './app/components/animations/BetterAnimatedLogo';
 import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-handler';
+
+
 
 const App = () => {
   const [user, setUser] = useState();
@@ -28,7 +32,9 @@ const App = () => {
     getLoginData();
  }, [])
 
-   if( !isReady )
+  // return <GestureHandlerRootView style={{flex: 1}} ><BetterAnimatedLogo/></GestureHandlerRootView>
+
+  if( !isReady )
     return <ActivityIndicator/>
 
 
