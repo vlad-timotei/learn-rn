@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, TouchableWithoutFeedback, View, Text } from 'react-native';
+import { TapGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
     useAnimatedStyle,
     useSharedValue, withDelay, withSpring,
     interpolate,
     withSequence,
+    useAnimatedGestureHandler,
+    runOnJS,
   } from 'react-native-reanimated';
+import BottomMenu from './BottomMenu';
 
 const BetterAnimatedLogo = () => {
+    const [ isOpen, setIsOpen ] = useState( false );
     const opacity = {
         white: useSharedValue( 0 ),
         orange: useSharedValue( 0 ),
@@ -77,13 +82,48 @@ const BetterAnimatedLogo = () => {
             }
         }),
     };
+
+    const openMenu = () => {
+        setIsOpen( prev => !prev );
+
+    }
+
+    const handleTap = useAnimatedGestureHandler({
+        onStart: () => {
+          runOnJS(openMenu);
+        }
+    });
+
+    return (
+        <View style={styles.container}>
+          <TouchableWithoutFeedback onPress={openMenu}>
+              <View>
+                  <Animated.View style={[styles.logo, logoAnimatedStyle.logo]}>
+                          <Animated.View style={[styles.red, logoAnimatedStyle.red]} />
+                          <Animated.View style={[styles.orange, logoAnimatedStyle.orange]} />
+                          <Animated.View style={[styles.white, logoAnimatedStyle.white]} />
+                  </Animated.View>
+              </View>
+          </TouchableWithoutFeedback>
+          <BottomMenu isOpen={isOpen}>
+              <Text>Welcome here!</Text>
+          </BottomMenu>
+        </View>
+   
+  );
+
     return (
           <View style={styles.container}>
-            <Animated.View style={[styles.logo, logoAnimatedStyle.logo]}>
-                    <Animated.View style={[styles.red, logoAnimatedStyle.red]} />
-                    <Animated.View style={[styles.orange, logoAnimatedStyle.orange]} />
-                    <Animated.View style={[styles.white, logoAnimatedStyle.white]} />
-            </Animated.View>
+            <TapGestureHandler onGestureEvent={handleTap}>
+                <View>
+                    <Animated.View style={[styles.logo, logoAnimatedStyle.logo]}>
+                            <Animated.View style={[styles.red, logoAnimatedStyle.red]} />
+                            <Animated.View style={[styles.orange, logoAnimatedStyle.orange]} />
+                            <Animated.View style={[styles.white, logoAnimatedStyle.white]} />
+                    </Animated.View>
+                </View>
+            </TapGestureHandler>
+            <BottomMenu isOpen={isOpen}/>
           </View>
      
     );
@@ -130,10 +170,10 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 100,
     },
     container: {
       flex: 1,
-      justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: '#3b1159'
     }
