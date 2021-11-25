@@ -23,7 +23,7 @@ const AnimationsScreen = () => {
     }
 
 
-    function someWorklet (greeting) {
+    function someWorklet (greeting: string) {
         'worklet';
         const mywidth= returningWorklet();
         console.log(greeting, 'From the UI thread', 'Width is', mywidth);

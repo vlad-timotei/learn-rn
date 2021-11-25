@@ -1,18 +1,20 @@
 import { useContext } from "react"
 
 import AuthContext from "./context"
-import auth from '../auth/auth';
+import auth from './auth';
+
+type AuthData = {
+  user: {} | null;
+  setUser: React.Dispatch<React.SetStateAction<{} | null>>;
+};
 
 const useAuth = () => {
-  const { user, setUser } = useContext( AuthContext );
+  const { user, setUser } = useContext<AuthData>( AuthContext );
 
   const logOut = () => {
     auth.logout();
     setUser( null );
   }
-
-  // Maybe implement logOut
-
 
   return { user, logOut, setUser };
 }

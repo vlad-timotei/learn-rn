@@ -2,10 +2,18 @@ import React, { useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
 import Tag from './Tag';
-const TagSelector = ( { defaultColor, selectedColor, tags, setCount }) => {
-    const[ selectedItems, setSelectedItems ] = useState([]);
 
-    const handlePress = id => {
+type TagSelectorProps = {
+    defaultColor: string;
+    selectedColor: string;
+    tags: [];
+    setCount: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const TagSelector: React.FC<TagSelectorProps> = ( { defaultColor, selectedColor, tags, setCount }) => {
+    const[ selectedItems, setSelectedItems ] = useState<number[]>([]);
+
+    const handlePress = ( id:number ) => {
         if ( ! selectedItems.includes( id ) ) {
             setSelectedItems( prev => [ ...prev, id ] );
             setCount( prev => prev+1 );
@@ -22,7 +30,7 @@ const TagSelector = ( { defaultColor, selectedColor, tags, setCount }) => {
                 data={tags}
                 renderItem={ ({ item }) => (
                     <Tag 
-                        title={item.title}
+                        title={item.title as string}
                         backgroundColor={selectedItems.includes(item.id) ? selectedColor : defaultColor}
                         onPress={() => { handlePress(item.id)} }
                         setCount={setCount}

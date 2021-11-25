@@ -1,5 +1,5 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import HomeScreen from '../screens/HomeScreen';
 import TagsScreen from '../screens/TagsScreen';
@@ -8,7 +8,21 @@ import Cirlce from '../components/animations/Circle';
 import BetterAnimatedLogo from '../components/animations/BetterAnimatedLogo';
 
 
-const Stack = createNativeStackNavigator();
+type AppNavigationParamList = {
+    home: undefined;
+    tags: undefined;
+    images: undefined;
+    animations_circle: undefined;
+    animations_logo: undefined;
+}
+
+export type HomeNavigationProps = NativeStackScreenProps<AppNavigationParamList, 'home'>;
+export type TagsNavigationProps = NativeStackScreenProps<AppNavigationParamList, 'tags'>;
+export type ImagesNavigationProps = NativeStackScreenProps<AppNavigationParamList, 'images'>;
+export type AnimationsCirlceNavigationProps = NativeStackScreenProps<AppNavigationParamList, 'animations_circle'>;
+export type AnimationsLogoNavigationProps = NativeStackScreenProps<AppNavigationParamList, 'animations_logo'>;
+
+const Stack = createNativeStackNavigator<AppNavigationParamList>();
 
 const AppNavigation = () => {
   return (

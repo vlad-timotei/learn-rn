@@ -11,11 +11,12 @@ import AuthNavigation from './app/navigation/AuthNavigation';
 
 import BetterAnimatedLogo from './app/components/animations/BetterAnimatedLogo';
 import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-handler';
+import DragDropScreeen from './app/screens/DragDropScreen';
 
 
 
 const App = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<{}|null>(null);
   const [isReady, setIsReady] = useState(false);
 
   const getLoginData = async () =>{ 
@@ -32,7 +33,7 @@ const App = () => {
     getLoginData();
  }, [])
 
-  // return <GestureHandlerRootView style={{flex: 1}} ><BetterAnimatedLogo/></GestureHandlerRootView>
+/// return <GestureHandlerRootView style={{flex: 1}} ><DragDropScreeen /></GestureHandlerRootView>
 
   if( !isReady )
     return <ActivityIndicator/>

@@ -1,7 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 
-const Tag = ({title, onPress, backgroundColor}) => {
+type TagProps = {
+    title: string;
+    onPress: () => void;
+    backgroundColor: string;
+}
+
+const Tag: React.FC<TagProps> = ({title, onPress, backgroundColor}) => {
     return (
         <TouchableWithoutFeedback onPress={onPress} >
             <View style={[

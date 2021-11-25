@@ -16,7 +16,7 @@ const Cirlce = () => {
     const y = useSharedValue(startingPosition);
 
     const eventHandler = useAnimatedGestureHandler({
-        onStart: (event, ctx) => {
+        onStart: (event, ctx: {startX: number, startY: number}) => {
           pressed.value = true;
           ctx.startX = x.value;
           ctx.startY = y.value; 

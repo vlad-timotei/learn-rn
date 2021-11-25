@@ -4,7 +4,14 @@ import { StyleSheet, View, Text } from 'react-native';
 import { TouchableHighlight } from 'react-native';
 import PaginationBtn from './PaginationBtn';
 
-const Pagination = ({prev = true, next=true, nextPage, prevPage}) => {
+type PaginationProps = {
+    prev: boolean;
+    next: boolean;
+    nextPage: () => void;
+    prevPage: () => void;
+};
+
+const Pagination: React.FC<PaginationProps> = ({prev = true, next=true, nextPage, prevPage}) => {
     return (
         <View style={styles.container}>
             <View style={styles.btn}>

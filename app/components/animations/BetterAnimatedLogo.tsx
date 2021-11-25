@@ -12,7 +12,7 @@ import Animated, {
 import BottomMenu from './BottomMenu';
 
 const BetterAnimatedLogo = () => {
-    const [ isOpen, setIsOpen ] = useState( false );
+    const [ isOpen, setIsOpen ] = useState<boolean>( false );
     const opacity = {
         white: useSharedValue( 0 ),
         orange: useSharedValue( 0 ),

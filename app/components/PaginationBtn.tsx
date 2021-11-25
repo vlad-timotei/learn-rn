@@ -1,7 +1,12 @@
 import React from 'react';
 import { StyleSheet, TouchableHighlight, Text } from 'react-native';
 
-const PaginationBtn = ({title, onPress}) => {
+type PaginationBtnProps = {
+    title: string;
+    onPress: () => void;
+};
+
+const PaginationBtn: React.FC<PaginationBtnProps> = ({title, onPress}) => {
     return (
         <TouchableHighlight onPress={onPress} style={styles.btn}>
                 <Text style={styles.txt}>{title}</Text>

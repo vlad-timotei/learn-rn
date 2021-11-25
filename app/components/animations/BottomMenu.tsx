@@ -11,7 +11,12 @@ const SPRING_CONFIG = {
     stiffness: 50,
 };
 
-const BottomMenu = ({isOpen = true, setIsOpen, children }) => {
+type BottomMenuProps = {
+    isOpen: boolean;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const BottomMenu: React.FC<BottomMenuProps> = ({isOpen = true, setIsOpen, children }) => {
     const dimensions = useWindowDimensions();
     const top = useSharedValue( dimensions.height );
 
@@ -30,8 +35,9 @@ const BottomMenu = ({isOpen = true, setIsOpen, children }) => {
             
     }, [isOpen]);
 
+
     const gestureHandler = useAnimatedGestureHandler({
-        onStart: ( event, context ) => {
+        onStart: ( event, context: { startTop: number } ) => {
             context.startTop = top.value;
         },
         onActive: ( event, context ) => {

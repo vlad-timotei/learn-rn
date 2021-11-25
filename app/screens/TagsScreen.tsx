@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 import AuthContext from '../auth/context';
+import Animated, { withDelay, withTiming } from 'react-native-reanimated';
 
 import TagSelector from '../components/TagSelector';
+import { TagsNavigationProps } from '../navigation/AppNavigation';
 
 const tags = [
     {
@@ -47,10 +49,13 @@ const tags = [
     },
 ];
 
-const TagsScreen = ( { navigation }) => {
-    const [ count, setCount ] = useState( 0 );
+
+const TagsScreen = ( { navigation }: TagsNavigationProps ) => {
+    const [ count, setCount ] = useState<number>( 0 );
     const {user:{username}} = useContext(AuthContext);
 
+   
+    
 
     return (
         <View style={styles.container}>

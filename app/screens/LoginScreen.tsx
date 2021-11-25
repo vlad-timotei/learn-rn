@@ -12,12 +12,12 @@ const LoginScreen = () => {
 
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
-    const [ error, setError ] = useState();
+    const [ error, setError ] = useState<boolean>();
 
     const handleLogin = async() => {
         const result = await Auth.login( username, password );
         if ( result.error )
-            return setError( result.error )
+            return setError( !result.error )
         setError( false );
         setUser( result.value );
     }
@@ -30,7 +30,7 @@ const LoginScreen = () => {
                 onChangeText={setUsername}
                 value={username}
                 autoCapitalize='none'
-                autoCorrrect={false}
+                autoCorrect={false}
                 keyboardType='email-address'
                 placeholder='Email'
             />
@@ -39,7 +39,7 @@ const LoginScreen = () => {
                 onChangeText={setPassword}
                 value={password}
                 autoCapitalize='none'
-                autoCorrrect={false}
+                autoCorrect={false}
                 placeholder='Password'
                 secureTextEntry
             />

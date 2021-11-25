@@ -3,6 +3,7 @@ import { ActivityIndicator, FlatList, Image, Text, TouchableHighlight, View } fr
 import Animated, {
   withTiming,
   withDelay,
+  withSpring,
 } from 'react-native-reanimated';
 
 
@@ -13,16 +14,16 @@ const search_query = 'dogs';
 const per_page = 10;
 
 const ImagesScreen = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [imagesData, setImagesData] = useState([]);
-  const [page, setPage] = useState(1);
-  const [maxPage, setMaxPage] = useState(2);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [imagesData, setImagesData] = useState<string[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [maxPage, setMaxPage] = useState<number>(2);
 
-  const searchImages = async( query, per_page, page) => {
+  const searchImages = async( query: string, per_page: number, page: number) => {
     setIsLoading( true );
     const result = await pexels.searchImages(query, per_page, page);
     setImagesData( [ ...imagesData, ...result.photos ] );
-    setMaxPage( parseInt( result.total_results / per_page ) );
+    setMaxPage( Math.floor( parseInt( result.total_results ) / per_page ) );
     setIsLoading( false );
   }
 
@@ -40,29 +41,7 @@ const ImagesScreen = () => {
   }, [ page ]);
 
   // With this version - doesn't work - needs to be remade.
-  const entering = (targetValues) => {
-    'worklet';
-    const animations = {
-      originX: withTiming(targetValues.originX, { duration: 3000 }),
-      opacity: withTiming(1, { duration: 2000 }),
-      borderRadius: withDelay(4000, withTiming(30, { duration: 3000 })),
-      transform: [
-        { rotate: withTiming('0deg', { duration: 4000 }) },
-        { scale: withTiming(1, { duration: 3500 }) },
-      ],
-    };
-    const initialValues = {
-      originX: -150,
-      opacity: 0,
-      borderRadius: 10,
-      transform: [{ rotate: '90deg' }, { scale: 0.5 }],
-    };
-    return {
-      initialValues,
-      animations,
-    };
-  };
-
+  
   return (
     <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         <FlatList
@@ -72,7 +51,7 @@ const ImagesScreen = () => {
           data={imagesData}
           keyExtractor={({ id }) => id}
           renderItem={({ item, index }) => (
-            <Animated.View entering={entering}>
+            <Animated.View>
               <Animated.Image
               source={{uri: item.src.medium}} style={{width: 150, height: 150, margin: 10}}/>
             </Animated.View>

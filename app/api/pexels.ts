@@ -9,7 +9,7 @@ const params = {
     },
   };
 
-const getPexels = async(uri, params) =>{
+const getPexels = async(uri: string, params:{}) =>{
     try {
         const response = await fetch( uri, params );
         if( !response.ok )
@@ -22,7 +22,7 @@ const getPexels = async(uri, params) =>{
       }
 }
 
-const searchImages = async (query, per_page, page) => {
+const searchImages = async (query: string, per_page: number, page: number) => {
     return await getPexels(`https://api.pexels.com/v1/search?per_page=${per_page}&query=${query}&page=${page}`, params);
 }
 

@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const prefix = 'learnRN';
 
-const set = async ( key, value ) => {
+const set = async ( key: string, value: {} ) => {
     try {
         await AsyncStorage.setItem( prefix + key, JSON.stringify( value ));
         // console.log(`I am setting ${key} with value of `, value);
@@ -12,9 +12,9 @@ const set = async ( key, value ) => {
 }
 
 
-const get = async ( key ) => {
+const get = async ( key: string ) => {
     try {
-        const item = await AsyncStorage.getItem( prefix + key );
+        const item = await AsyncStorage.getItem( prefix + key ) as string;
         const value = JSON.parse( item );
         // console.log(`I am getting ${key} with value of `, value);
         if ( !value ) return null;
@@ -26,7 +26,7 @@ const get = async ( key ) => {
 
 }
 
-const remove = async ( key ) => {
+const remove = async ( key: string ) => {
     try {
         await AsyncStorage.removeItem( prefix + key );
         // console.log(`I am removinfg ${key}`);

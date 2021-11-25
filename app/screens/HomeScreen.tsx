@@ -6,8 +6,9 @@ import Logo from '../components/Logo';
 
 
 import useAuth from '../auth/useAuth';
+import { HomeNavigationProps } from '../navigation/AppNavigation';
 
-const HomeScreen = ( {navigation} ) => {
+const HomeScreen = ( {navigation}: HomeNavigationProps ) => {
     const {logOut} = useAuth();
     return (
         <View style={styles.container}>
