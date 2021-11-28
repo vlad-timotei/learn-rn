@@ -83,14 +83,19 @@ const DOGS = [
     },
 ];
 
-const listToPositions = ( list: {}, attr: string) => {
-    const object = {};
-    Object.values( list ).forEach( ( el, i ) => object[ el[ attr ] ] = i );
+const listToPositions = ( list: { id: string, name: string, img: string }[] ) => {
+    type genericObj = {
+        [prop: string]: number;
+    }
+    const object: genericObj = {};
+    list.forEach( ( el, i ) => {
+        object[ el.name ] = i;
+    });
     return object;
 } 
 
 const DragDropScreeen = () => {
-    const positions = useRef( listToPositions( DOGS, 'id' )).current;
+    const positions = useRef( listToPositions( DOGS )).current;
 
     return (
 

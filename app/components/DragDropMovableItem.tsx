@@ -8,7 +8,7 @@ type DragDropMovableItemProps = {
     title: string;
     subtitle: string;
     img: string;
-    positions: { [key: string]: string };
+    positions: { [key: string]: number };
 };
 
 // const funct = ( obj: {}, param: string ) => {
